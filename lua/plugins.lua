@@ -29,6 +29,9 @@ return require('packer').startup(function()
 
 	-- snippets
 	use 'hrsh7th/vim-vsnip'
+	use 'cstrap/python-snippets'
+	use 'ylcnfrht/vscode-python-snippet-pack'
+	use "rafamadriz/friendly-snippets"
 
 	-- lsp configs collection
 	use 'neovim/nvim-lspconfig'
@@ -81,4 +84,11 @@ return require('packer').startup(function()
 
 	-- quick fix list and location list toggle
   use 'Valloric/ListToggle'
+
+	-- show lsp diagnostics, references, telescope results, ...
+	use {
+		"folke/trouble.nvim",
+		requires = "kyazdani42/nvim-web-devicons",
+		config = function() require("trouble").setup {} end
+	}
 end)
