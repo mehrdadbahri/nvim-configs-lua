@@ -2,3 +2,5 @@ npm i -g pyright
 npm i -g vscode-langservers-extracted
 npm install -g @angular/language-server
 npm install -g typescript typescript-language-server
+apt-get install taskwarrior
+pip install 'python-lsp-server[all]'
