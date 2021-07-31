@@ -31,8 +31,11 @@ map('n', '<Leader>ai', 'mzgg=G`z', { noremap = true, silent = true })
 
 -- copy to and paset from system clipboard
 map('n', '<Leader>y', '"+y', { noremap = true, silent = true })
+map('v', '<Leader>y', '"+y', { noremap = true, silent = true })
 map('n', '<Leader>p', '"+p', { noremap = true, silent = true })
+map('v', '<Leader>p', '"+p', { noremap = true, silent = true })
 map('n', '<Leader>P', '"+P', { noremap = true, silent = true })
+map('v', '<Leader>P', '"+P', { noremap = true, silent = true })
 
 -- delete but keep current default buffer
 map('n', '<Leader>d', '"_d', { noremap = true, silent = true })
