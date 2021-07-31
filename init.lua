@@ -1,0 +1,6 @@
+require('plugins')
+require('settings')
+require('key_mappings')
+require('nvim-compe/main')
+require('nvim-lspconfig/main')
+require('nvim-autopairs').setup()
