@@ -1,4 +1,5 @@
 local map = vim.api.nvim_set_keymap
+local cmd = vim.cmd     -- execute Vim commands
 
 -- setting , as leader key
 map('n', ',', '<NOP>', { noremap = true, silent = true })
@@ -26,6 +27,13 @@ map('i', '<Tab>', 'v:lua.smart_tab()', {expr = true, noremap = true})
 -- enable folding with the spacebar
 map('n', ' ', 'za', { noremap = true, silent = true })
 
+-- fold all and unfold all
+map('n', '<Leader>z', 'zR', { noremap = true, silent = true })
+map('n', '<Leader>Z', 'zM', { noremap = true, silent = true })
+
+-- unfold all levels of current fold
+map('n', '<Leader>u', 'zA', { noremap = true, silent = true })
+
 -- reindent whole file
 map('n', '<Leader>ai', 'mzgg=G`z', { noremap = true, silent = true })
 
@@ -43,10 +51,6 @@ map('n', '<Leader>d', '"_d', { noremap = true, silent = true })
 -- go to end of line
 map('n', '<Leader>e', '$', { noremap = true, silent = true })
 map('v', '<Leader>e', '$', { noremap = true, silent = true })
-
--- fold all and unfold all
-map('n', '<Leader>z', 'zR', { noremap = true, silent = true })
-map('n', '<Leader>Z', 'zM', { noremap = true, silent = true })
 
 -- quit vim
 map('n', '<Leader>q', '<Cmd>qa<CR>', { noremap = true, silent = true })
@@ -105,4 +109,25 @@ map('n', '!', ':lua.insert_css_option_important()', {noremap = true, silent = tr
 map('t', '<Esc>', '<C-\\><C-n>', {noremap = true, silent = true})
 
 -- lsp key mappings
-map('n', '<F3>', '<Cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', {noremap = true, silent = true})
+map('n', '<F3>', '<Cmd>TroubleToggle<CR>', {noremap = true, silent = true})
+
+--------------------------------
+-- vim-vsnip mappings
+--------------------------------
+-- Expand or jump forward
+--map('i', '<C-j>', [[vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-j>']], {expr=true})
+--map('s', '<C-j>', [[vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-j>']], {expr=true})
+-- Expand or jump backward
+--map('i', '<C-k>', [[vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<C-k>']], {expr=true})
+--map('s', '<C-k>', [[vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<C-k>']], {expr=true})
+cmd([[
+" Expand or jump
+imap <expr> <C-j>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-j>'
+smap <expr> <C-j>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-j>'
+
+" Jump forward or backward
+imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+imap <expr> <C-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-k>'
+smap <expr> <C-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-k>'
+]])
