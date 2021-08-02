@@ -105,4 +105,10 @@ return require('packer').startup(function()
       require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
     end
   }
+
+  -- nvim-treesitter
+  use 'nvim-treesitter/nvim-treesitter'
+
+  -- CtrlP fuzzy finder
+  use 'kien/ctrlp.vim'
 end)
