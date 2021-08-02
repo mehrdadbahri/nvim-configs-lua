@@ -111,6 +111,13 @@ map('t', '<Esc>', '<C-\\><C-n>', {noremap = true, silent = true})
 -- lsp key mappings
 map('n', '<F3>', '<Cmd>TroubleToggle<CR>', {noremap = true, silent = true})
 
+-- navigate between buffers
+map('n', ']b', '<Cmd>bn<CR>', {noremap = true, silent = true})
+map('n', '[b', '<Cmd>bp<CR>', {noremap = true, silent = true})
+
+-- clear search highlighting
+map('n', '<leader><Esc>', ':nohl<CR>', {noremap = true, silent = true})
+
 --------------------------------
 -- vim-vsnip mappings
 --------------------------------
