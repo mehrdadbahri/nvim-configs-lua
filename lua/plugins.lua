@@ -36,11 +36,12 @@ return require('packer').startup(function()
 	-- lsp configs collection
 	use 'neovim/nvim-lspconfig'
 
-	-- Fuzzy finder
+	-- Telescope
 	use {
 		'nvim-telescope/telescope.nvim',
 		requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
 	}
+	use 'nvim-telescope/telescope-fzy-native.nvim'
 
 	-- autopairs
 	use'windwp/nvim-autopairs'
@@ -91,4 +92,17 @@ return require('packer').startup(function()
 		requires = "kyazdani42/nvim-web-devicons",
 		config = function() require("trouble").setup {} end
 	}
+
+	-- repeat plugin maps
+	use 'tpope/vim-repeat'
+
+	-- easy motion
+  use {
+    'phaazon/hop.nvim',
+    as = 'hop',
+    config = function()
+      -- you can configure Hop the way you like here; see :h hop-config
+      require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+    end
+  }
 end)
