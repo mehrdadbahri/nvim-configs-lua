@@ -75,7 +75,7 @@ map('n', '<C-F>t', '<Cmd>CtrlSFToggle<CR>', { noremap = true, silent = true })
 map('n', '<F3>', '<Cmd>PymodeLint<CR>', { noremap = true, silent = true })
 
 -- show git status
-map('n', '<C-G>', '<Cmd>Gstatus<CR>', { noremap = true, silent = true })
+map('n', '<C-G>', '<Cmd>Git<CR>', { noremap = true, silent = true })
 
 -- run the current file in bash
 map('n', '<Leader>r', '<Cmd>!"%:p"<CR>', { noremap = true, silent = true })
