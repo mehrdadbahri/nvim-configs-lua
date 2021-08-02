@@ -111,7 +111,8 @@ cmd([[
 -----------------------------------------------------------
 -- Python
 -----------------------------------------------------------
-cmd[[autocmd filetype python setlocal foldmethod=indent]]
+cmd[[autocmd filetype python setlocal foldmethod=indent
+  setlocal foldlevelstart=99]]
 
 -----------------------------------------------------------
 -- Autocompletion
