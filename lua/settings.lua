@@ -72,6 +72,10 @@ g.lt_quickfix_list_toggle_map = '<Leader>s'
 g.vimwiki_list = {{syntax = 'markdown', ext = '.md'}}
 g.vimwiki_ext2syntax = {['.md'] = 'markdown', ['.markdown'] = 'markdown', ['.mdown'] = 'markdown'}
 
+-- CtrlP configs
+g.ctrlp_map = '<C-p>'
+g.ctrlp_cmd = 'CtrlP'
+
 -----------------------------------------------------------
 -- Memory, CPU
 -----------------------------------------------------------
