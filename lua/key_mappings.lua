@@ -88,16 +88,15 @@ map('n', '<leader>r', ':NvimTreeRefresh<CR>', {noremap = true, silent = true})
 map('n', '<leader>n', ':NvimTreeFindFile<CR>', {noremap = true, silent = true})
 
 -- format python file with yapf
-function _G.run_yapf_current_file()
-    return vim.bo.filetype == 'python' and t'<Cmd>0,$!yapf<CR>' or ''
-end
-map('n', '<leader>=', '<Cmd>0,$!yapf<CR>', {noremap = true, silent = true})
+map('n', '<leader>=', '<Cmd>Yapf<CR>', {noremap = true, silent = true})
 
 -- Telescope mappings
 map('n', '<leader>f', '<Cmd>Telescope find_files<CR>', {noremap = true, silent = true})
 map('n', '<leader>g', '<Cmd>Telescope live_grep<CR>', {noremap = true, silent = true})
 map('n', '<leader>b', '<Cmd>Telescope buffers<CR>', {noremap = true, silent = true})
 map('n', '<leader>h', '<Cmd>Telescope help_tags<CR>', {noremap = true, silent = true})
+map('n', '<leader>c', '<Cmd>Telescope git_commits<CR>', {noremap = true, silent = true})
+map('n', '<leader>j', '<Cmd>Telescope grep_string<CR>', {noremap = true, silent = true})
 
 -- insert !important css option
 function _G.insert_css_option_important()
