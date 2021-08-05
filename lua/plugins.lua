@@ -111,4 +111,7 @@ return require('packer').startup(function()
 
   -- CtrlP fuzzy finder
   use 'kien/ctrlp.vim'
+
+  -- plugin for yapf
+  use 'mindriot101/vim-yapf'
 end)
