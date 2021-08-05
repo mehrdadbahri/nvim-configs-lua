@@ -27,7 +27,7 @@ o.syntax = 'enable'         -- enable syntax highlighting
 w.number = true             -- show line number
 w.relativenumber = true     -- show relative line numbers
 o.showmatch = true          -- highlight matching parenthesis
-w.foldmethod = 'marker'     -- enable folding (default 'foldmarker')
+w.foldmethod = 'indent'     -- enable folding (default 'marker')
 w.colorcolumn = '80'        -- line lenght marker at 80 columns
 o.splitright = true         -- vertical split to the right
 o.splitbelow = true         -- orizontal split to the bottom
@@ -75,6 +75,25 @@ g.vimwiki_ext2syntax = {['.md'] = 'markdown', ['.markdown'] = 'markdown', ['.mdo
 -- CtrlP configs
 g.ctrlp_map = '<C-p>'
 g.ctrlp_cmd = 'CtrlP'
+
+-- Telescope configs
+require('telescope').load_extension('fzy_native')
+require('telescope').setup {
+  defaults = {
+    file_ignore_patterns = {
+      "node_modules",
+      "platforms",
+      "plugins",
+      "dist",
+      "lib",
+      "uploads",
+      "www",
+      "i18n",
+      "tests",
+      "*.po"
+    },
+  },
+}
 
 -----------------------------------------------------------
 -- Memory, CPU
