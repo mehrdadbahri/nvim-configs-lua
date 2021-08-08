@@ -114,4 +114,10 @@ return require('packer').startup(function()
 
   -- plugin for yapf
   use 'mindriot101/vim-yapf'
+
+  -- plugin for fish scripts
+  use 'dag/vim-fish'
+
+  -- csv files plugin
+  use 'chrisbra/csv.vim'
 end)
