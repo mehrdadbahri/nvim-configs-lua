@@ -108,6 +108,7 @@ return require('packer').startup(function()
 
   -- nvim-treesitter
   use 'nvim-treesitter/nvim-treesitter'
+  use 'nvim-treesitter/playground'
 
   -- CtrlP fuzzy finder
   use 'kien/ctrlp.vim'
