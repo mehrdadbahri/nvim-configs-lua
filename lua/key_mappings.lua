@@ -115,7 +115,7 @@ map('n', ']b', '<Cmd>bn<CR>', {noremap = true, silent = true})
 map('n', '[b', '<Cmd>bp<CR>', {noremap = true, silent = true})
 
 -- clear search highlighting
-map('n', '<leader><Esc>', ':nohl<CR>', {noremap = true, silent = true})
+map('n', '<Leader><Esc>', ':nohl<CR>', {noremap = true, silent = true})
 
 --------------------------------
 -- vim-vsnip mappings
