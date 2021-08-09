@@ -98,7 +98,12 @@ require('telescope').setup {
 -- treesitter configs
 require'nvim-treesitter.configs'.setup {
 	ensure_installed = "maintained",
-	highlight = { enable = true }
+	highlight = { enable = true, disable = {"javascript", "python", "xml"} },
+	rainbow = {
+		enable = true,
+		extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+		max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
+	}
 }
 
 -----------------------------------------------------------
@@ -113,7 +118,8 @@ b.synmaxcol = 240       -- max column for syntax highlight
 -- Colorscheme
 -----------------------------------------------------------
 o.termguicolors = true          -- enable 24-bit RGB colors
-cmd([[colorscheme molokai]])    -- set colorscheme
+cmd([[colorscheme gruvbox]])    -- set colorscheme
+g.gruvbox_contrast_dark = 'hard'
 
 -----------------------------------------------------------
 -- Tabs, indent
