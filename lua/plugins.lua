@@ -121,4 +121,10 @@ return require('packer').startup(function()
 
   -- csv files plugin
   use 'chrisbra/csv.vim'
+
+  -- rainbow brackets
+  use 'p00f/nvim-ts-rainbow'
+
+  -- gruvbox color scheme
+  use 'morhetz/gruvbox'
 end)
