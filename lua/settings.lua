@@ -106,6 +106,10 @@ require'nvim-treesitter.configs'.setup {
 	}
 }
 
+-- actiate colors preview plugin
+o.termguicolors = true
+require'colorizer'.setup()
+
 -----------------------------------------------------------
 -- Memory, CPU
 -----------------------------------------------------------
@@ -140,7 +144,7 @@ cmd([[
 
 -- 2 spaces for selected filetypes
 cmd([[
-  autocmd FileType xml,html,xhtml,css,scss,javascript,lua setlocal shiftwidth=2 tabstop=2
+  autocmd FileType xml,html,xhtml,css,scss,javascript,typescript,lua setlocal shiftwidth=2 tabstop=2
 ]])
 
 -----------------------------------------------------------
