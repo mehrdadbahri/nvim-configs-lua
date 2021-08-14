@@ -62,7 +62,7 @@ return require('packer').startup(function()
 	use 'alvan/vim-closetag'
 
 	-- show colors in css
-	use 'ap/vim-css-color'
+	use 'norcalli/nvim-colorizer.lua'
 
 	-- show git info of lines
 	use 'airblade/vim-gitgutter'
@@ -95,16 +95,6 @@ return require('packer').startup(function()
 
 	-- repeat plugin maps
 	use 'tpope/vim-repeat'
-
-	-- easy motion
-  use {
-    'phaazon/hop.nvim',
-    as = 'hop',
-    config = function()
-      -- you can configure Hop the way you like here; see :h hop-config
-      require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
-    end
-  }
 
   -- nvim-treesitter
   use 'nvim-treesitter/nvim-treesitter'
