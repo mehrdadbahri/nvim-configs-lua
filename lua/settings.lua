@@ -123,7 +123,7 @@ b.synmaxcol = 240       -- max column for syntax highlight
 -----------------------------------------------------------
 o.termguicolors = true          -- enable 24-bit RGB colors
 cmd([[colorscheme gruvbox]])    -- set colorscheme
-g.gruvbox_contrast_dark = 'hard'
+--g.gruvbox_contrast_dark = 'hard'
 
 -----------------------------------------------------------
 -- Tabs, indent
