@@ -77,6 +77,10 @@ map('n', '<F3>', '<Cmd>PymodeLint<CR>', { noremap = true, silent = true })
 -- show git status
 map('n', '<C-G>', '<Cmd>Git<CR>', { noremap = true, silent = true })
 
+-- git conflict 3 window diffget
+map('n', 'dr', '<Cmd>diffget //3<CR>', { noremap = true, silent = true })
+map('n', 'dl', '<Cmd>diffget //2<CR>', { noremap = true, silent = true })
+
 -- run the current file in bash
 map('n', '<Leader>r', '<Cmd>!"%:p"<CR>', { noremap = true, silent = true })
 -- make current file executable
@@ -109,6 +113,7 @@ map('t', '<Esc>', '<C-\\><C-n>', {noremap = true, silent = true})
 
 -- lsp key mappings
 map('n', '<F3>', '<Cmd>TroubleToggle<CR>', {noremap = true, silent = true})
+map('n', '<leader><space>', '<Cmd>lua require(\'lspsaga.codeaction\').code_action()<CR>', {noremap = true, silent = true})
 
 -- navigate between buffers
 map('n', ']b', '<Cmd>bn<CR>', {noremap = true, silent = true})
