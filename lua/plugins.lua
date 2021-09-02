@@ -117,4 +117,7 @@ return require('packer').startup(function()
 
   -- gruvbox color scheme
   use 'morhetz/gruvbox'
+
+  -- lspsaga
+  use 'glepnir/lspsaga.nvim'
 end)
