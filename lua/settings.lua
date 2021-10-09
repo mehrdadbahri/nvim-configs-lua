@@ -137,6 +137,12 @@ b.copyindent = true     -- persist on indent types
 -- don't auto commenting new lines
 cmd([[au BufEnter * set fo-=c fo-=r fo-=o]])
 
+-- NerdComenter options
+-- Align line-wise comment delimiters flush left instead of following code indentation
+g.NERDDefaultAlign = 'left'
+-- Enable trimming of trailing whitespace when uncommenting
+g.NERDTrimTrailingWhitespace = 1
+
 -- remove line lenght marker for selected filetypes
 cmd([[
   autocmd FileType text,markdown,xml,html,xhtml,javascript setlocal cc=0
@@ -144,7 +150,7 @@ cmd([[
 
 -- 2 spaces for selected filetypes
 cmd([[
-  autocmd FileType xml,html,xhtml,css,scss,javascript,typescript,lua setlocal shiftwidth=2 tabstop=2
+  autocmd FileType xml,html,xhtml,css,scss,javascript,typescript,lua setlocal shiftwidth=2 tabstop=2 expandtab
 ]])
 
 -----------------------------------------------------------
@@ -152,6 +158,13 @@ cmd([[
 -----------------------------------------------------------
 cmd[[autocmd filetype python setlocal foldmethod=indent
   setlocal foldlevelstart=99]]
+
+-----------------------------------------------------------
+-- Go
+-----------------------------------------------------------
+cmd([[
+  autocmd FileType go setlocal shiftwidth=4 tabstop=4 expandtab
+]])
 
 -----------------------------------------------------------
 -- Autocompletion

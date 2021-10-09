@@ -33,5 +33,8 @@ require'lspconfig'.tsserver.setup{}
 -- Bash
 require'lspconfig'.bashls.setup{}
 
+-- Go
+require'lspconfig'.gopls.setup{}
+
 local saga = require 'lspsaga'
 saga.init_lsp_saga()
