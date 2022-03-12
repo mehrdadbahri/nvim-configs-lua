@@ -94,6 +94,7 @@ require('telescope').setup {
     },
   },
 }
+require('telescope').load_extension('git_worktree')
 
 -- treesitter configs
 require'nvim-treesitter.configs'.setup {
@@ -181,3 +182,5 @@ require('lualine').setup {
     icons_enabled = true
   };
 }
+
+require'nvim-tree'.setup {}
