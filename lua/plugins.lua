@@ -56,7 +56,10 @@ return require('packer').startup(function()
 	use 'preservim/nerdcommenter'
 
 	-- Vimwiki
-	use 'vimwiki/vimwiki'
+	use {
+    'vimwiki/vimwiki',
+    branch = 'dev'
+	}
 
 	-- auto close html tags
 	use 'alvan/vim-closetag'
@@ -120,4 +123,23 @@ return require('packer').startup(function()
 
   -- lspsaga
   use 'glepnir/lspsaga.nvim'
+
+  -- lsp typescript utils
+  use {
+    'jose-elias-alvarez/nvim-lsp-ts-utils',
+    requires = 'jose-elias-alvarez/null-ls.nvim'
+  }
+
+  -- git worktree
+  use 'ThePrimeagen/git-worktree.nvim'
+
+  -- close buffer without closing window
+  use 'qpkorr/vim-bufkill'
+
+  -- Copilot
+  use 'github/copilot.vim'
+
+  -- edit remote files
+  use 'zenbro/mirror.vim'
+
 end)
