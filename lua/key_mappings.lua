@@ -5,7 +5,7 @@ local cmd = vim.cmd     -- execute Vim commands
 map('n', ',', '<NOP>', { noremap = true, silent = true })
 
 -- close buffer
-map('n', '<Leader>x', [[<Cmd>bd<CR>]], { noremap = true, silent = true })
+map('n', '<Leader>x', [[<Cmd>BD<CR>]], { noremap = true, silent = true })
 
 -- moving between windows
 map('n', '<C-J>', '<C-W><C-J>', { noremap = true, silent = true })
@@ -54,9 +54,6 @@ map('v', '<Leader>e', '$', { noremap = true, silent = true })
 
 -- quit vim
 map('n', '<Leader>q', '<Cmd>qa<CR>', { noremap = true, silent = true })
-
---  quit buffer
-map('n', '<Leader>x', '<Cmd>bd<CR>', { noremap = true, silent = true })
 
 -- easily insert ; and ,
 map('n', ';', 'A;<Esc>', { noremap = true, silent = true })
