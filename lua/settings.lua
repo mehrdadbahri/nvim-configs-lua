@@ -99,10 +99,11 @@ require('telescope').setup {
   },
 }
 require('telescope').load_extension('git_worktree')
+require('telescope').load_extension('flutter')
 
 -- treesitter configs
 require'nvim-treesitter.configs'.setup {
-	ensure_installed = "maintained",
+	ensure_installed = "all",
 	highlight = { enable = true, disable = {"javascript", "python", "xml"} },
 	rainbow = {
 		enable = true,
@@ -186,7 +187,7 @@ autocmd("FileType", {
 -----------------------------------------------------------
 -- Autocompletion
 -----------------------------------------------------------
-o.completeopt = 'menuone,noselect,noinsert' -- completion options
+o.completeopt = 'menu,menuone,noselect' -- completion options
 o.shortmess = 'c'       -- don't show completion messages
 
 -----------------------------------------------------------
@@ -200,3 +201,10 @@ require('lualine').setup {
 }
 
 require'nvim-tree'.setup {}
+
+-----------------------------------------------------------
+-- CodeActionMenu
+-----------------------------------------------------------
+g.code_action_menu_show_diff = false
+
+require('yapf').setup {}
