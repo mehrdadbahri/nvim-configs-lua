@@ -3,6 +3,7 @@
 -----------------------------------------------------------
 local cmd = vim.cmd     -- execute Vim commands
 local exec = vim.api.nvim_exec       -- execute Vimscript
+local autocmd = vim.api.nvim_create_autocmd
 --local map = vim.api.nvim_set_keymap  -- set global keymap
 local fn = vim.fn       -- call Vim functions
 local g = vim.g         -- global variables
@@ -47,7 +48,10 @@ g.ctrlsf_ignore_dir = {'www', 'i18n', 'tests', 'platforms'}
 g.ctrlsf_regex_pattern = 1
 
 -- remove whitespace on save
-cmd([[au BufWritePre * :%s/\s\+$//e]])
+autocmd("BufWritePre", {
+  pattern = "*",
+  command = "%s/\s\+$//e"
+})
 
 -- highlight on yank
 exec([[
@@ -129,14 +133,17 @@ cmd([[colorscheme gruvbox]])    -- set colorscheme
 -----------------------------------------------------------
 -- Tabs, indent
 -----------------------------------------------------------
-b.expandtab = true      -- use spaces instead of tabs
-b.shiftwidth = 4        -- shift 4 spaces when tab
-b.tabstop = 4           -- 1 tab == 4 spaces
-b.smartindent = true    -- autoindent new lines
-b.copyindent = true     -- persist on indent types
+g.expandtab = true      -- use spaces instead of tabs
+g.shiftwidth = 4        -- shift 4 spaces when tab
+g.tabstop = 4           -- 1 tab == 4 spaces
+g.smartindent = true    -- autoindent new lines
+g.copyindent = true     -- persist on indent types
 
 -- don't auto commenting new lines
-cmd([[au BufEnter * set fo-=c fo-=r fo-=o]])
+autocmd("BufEnter", {
+  pattern = "*",
+  command = "set fo-=c fo-=r fo-=o"
+})
 
 -- NerdComenter options
 -- Align line-wise comment delimiters flush left instead of following code indentation
@@ -145,27 +152,36 @@ g.NERDDefaultAlign = 'left'
 g.NERDTrimTrailingWhitespace = 1
 
 -- remove line lenght marker for selected filetypes
-cmd([[
-  autocmd FileType text,markdown,xml,html,xhtml,javascript setlocal cc=0
-]])
+autocmd("FileType", {
+  pattern = {"text","markdown","xml","html","xhtml"},
+  command = "setlocal cc=0"
+})
 
 -- 2 spaces for selected filetypes
-cmd([[
-  autocmd FileType xml,html,xhtml,css,scss,javascript,typescript,lua setlocal shiftwidth=2 tabstop=2 expandtab
-]])
+autocmd("FileType", {
+  pattern = {"xml","html", "htmldjango","xhtml","css","scss","javascript","typescript","lua","dart"},
+  command = "setlocal shiftwidth=2 tabstop=2"
+})
 
 -----------------------------------------------------------
 -- Python
 -----------------------------------------------------------
-cmd[[autocmd filetype python setlocal foldmethod=indent
-  setlocal foldlevelstart=99]]
+autocmd("FileType", {
+  pattern = "python",
+  command = "setlocal foldlevelstart=99"
+})
+autocmd("BufWritePre", {
+  pattern = {"*.py"},
+  command = "Yapf"
+})
 
 -----------------------------------------------------------
 -- Go
 -----------------------------------------------------------
-cmd([[
-  autocmd FileType go setlocal shiftwidth=4 tabstop=4 expandtab
-]])
+autocmd("FileType", {
+  pattern = "go",
+  command = "setlocal shiftwidth=4 tabstop=4"
+})
 
 -----------------------------------------------------------
 -- Autocompletion
