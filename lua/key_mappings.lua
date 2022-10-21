@@ -68,9 +68,6 @@ map('n', '<C-F>p', '<Plug>CtrlSFPwordPath', { noremap = true, silent = true })
 map('n', '<C-F>o', '<Cmd>CtrlSFOpen<CR>', { noremap = true, silent = true })
 map('n', '<C-F>t', '<Cmd>CtrlSFToggle<CR>', { noremap = true, silent = true })
 
--- check python syntax
-map('n', '<F3>', '<Cmd>PymodeLint<CR>', { noremap = true, silent = true })
-
 -- show git status
 map('n', '<C-G>', '<Cmd>Git<CR>', { noremap = true, silent = true })
 
@@ -97,7 +94,9 @@ map('n', '<leader>g', '<Cmd>Telescope live_grep<CR>', {noremap = true, silent = 
 map('n', '<leader>b', '<Cmd>Telescope buffers<CR>', {noremap = true, silent = true})
 map('n', '<leader>h', '<Cmd>Telescope help_tags<CR>', {noremap = true, silent = true})
 map('n', '<leader>c', '<Cmd>Telescope git_commits<CR>', {noremap = true, silent = true})
+map('n', '<leader>t', '<Cmd>Telescope git_branches<CR>', {noremap = true, silent = true})
 map('n', '<leader>j', '<Cmd>Telescope grep_string<CR>', {noremap = true, silent = true})
+map('n', '<leader><CR>', '<Cmd>Telescope flutter commands<CR>', {noremap = true, silent = true})
 
 -- insert !important css option
 function _G.insert_css_option_important()
@@ -109,8 +108,11 @@ map('n', '!', ':lua.insert_css_option_important()', {noremap = true, silent = tr
 map('t', '<Esc>', '<C-\\><C-n>', {noremap = true, silent = true})
 
 -- lsp key mappings
-map('n', '<F3>', '<Cmd>TroubleToggle<CR>', {noremap = true, silent = true})
-map('n', '<leader><space>', '<Cmd>lua require(\'lspsaga.codeaction\').code_action()<CR>', {noremap = true, silent = true})
+map('n', '<F3>', '<Cmd>TroubleToggle document_diagnostics<CR>', {noremap = true, silent = true})
+map('n', '<F4>', '<Cmd>TroubleToggle workspace_diagnostics<CR>', {noremap = true, silent = true})
+map('n', '<leader><space>', '<Cmd>CodeActionMenu<CR>', {noremap = true, silent = true})
+map('v', '<leader><space>', '<Cmd>CodeActionMenu<CR>', {noremap = true, silent = true})
+map('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', {noremap = true, silent = true})
 
 -- navigate between buffers
 map('n', ']b', '<Cmd>bn<CR>', {noremap = true, silent = true})
@@ -118,6 +120,9 @@ map('n', '[b', '<Cmd>bp<CR>', {noremap = true, silent = true})
 
 -- clear search highlighting
 map('n', '<Leader><Esc>', ':nohl<CR>', {noremap = true, silent = true})
+
+-- Run Flutter app
+map('n', '<F5>', '<Cmd>FlutterRun --dart-define=API_URL=https://api.mycrown.club<CR>', {noremap = true, silent = true})
 
 --------------------------------
 -- vim-vsnip mappings
