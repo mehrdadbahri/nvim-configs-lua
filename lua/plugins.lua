@@ -25,10 +25,16 @@ return require('packer').startup(function()
 	}
 
 	-- Autocomplete
-	use 'hrsh7th/nvim-compe'
+	use 'hrsh7th/nvim-cmp'
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-buffer'
+  use 'hrsh7th/cmp-path'
+  use 'hrsh7th/cmp-cmdline'
+  use 'hrsh7th/cmp-vsnip'
 
 	-- snippets
 	use 'hrsh7th/vim-vsnip'
+  use 'hrsh7th/vim-vsnip-integ'
 	use 'cstrap/python-snippets'
 	use 'ylcnfrht/vscode-python-snippet-pack'
 	use "rafamadriz/friendly-snippets"
@@ -107,7 +113,7 @@ return require('packer').startup(function()
   use 'kien/ctrlp.vim'
 
   -- plugin for yapf
-  use 'mindriot101/vim-yapf'
+  use 'amirali/yapf.nvim'
 
   -- plugin for fish scripts
   use 'dag/vim-fish'
@@ -116,7 +122,7 @@ return require('packer').startup(function()
   use 'chrisbra/csv.vim'
 
   -- rainbow brackets
-  use 'p00f/nvim-ts-rainbow'
+  -- use 'p00f/nvim-ts-rainbow'
 
   -- gruvbox color scheme
   use 'morhetz/gruvbox'
@@ -142,4 +148,15 @@ return require('packer').startup(function()
   -- edit remote files
   use 'zenbro/mirror.vim'
 
+  -- Flutter tools
+  use {'akinsho/flutter-tools.nvim', requires = 'nvim-lua/plenary.nvim'}
+
+  -- lsp format
+  use 'lukas-reineke/lsp-format.nvim'
+
+  -- lsp code actions in popup menu
+  use 'weilbith/nvim-code-action-menu'
+
+  -- Icons
+  use 'ryanoasis/vim-devicons'
 end)
