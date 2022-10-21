@@ -1,22 +1,51 @@
 local nvim_lsp = require("lspconfig")
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+--Enable (broadcasting) snippet capability for completion
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
+require("lsp-format").setup {}
+
 -- Python
-nvim_lsp.pylsp.setup{}
+nvim_lsp.pylsp.setup{
+  on_attach = require("lsp-format").on_attach,
+  capabilities = capabilities,
+  settings = {
+    configurationSources = {"pylint"},
+    plugins = {
+      pylint = { enabled = true },
+      flake8 = { enabled = false },
+      pycodestyle = { enabled = false },
+      pyflakes = { enabled = false },
+    }
+  }
+}
 --require('lspconfig').pyright.setup{}
 
 -- CSS
---Enable (broadcasting) snippet capability for completion
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
 nvim_lsp.cssls.setup {
   capabilities = capabilities,
+  on_attach = require("lsp-format").on_attach,
 }
 -- HTML
 nvim_lsp.html.setup {
   capabilities = capabilities,
+  init_options = {
+    provideFormatter = true,
+    configurationSection = { "html", "css", "javascript" },
+    embeddedLanguages = {
+      css = true,
+      javascript = true
+    },
+  },
+  on_attach = require("lsp-format").on_attach,
 }
 -- Json
 nvim_lsp.jsonls.setup {
+  on_attach = require("lsp-format").on_attach,
   commands = {
     Format = {
       function()
@@ -27,7 +56,10 @@ nvim_lsp.jsonls.setup {
 }
 
 -- Angular
-nvim_lsp.angularls.setup{}
+nvim_lsp.angularls.setup{
+  on_attach = require("lsp-format").on_attach,
+  capabilities = capabilities,
+}
 
 -- Typescript
 require("null-ls").setup {}
@@ -93,7 +125,18 @@ nvim_lsp.tsserver.setup{
 nvim_lsp.bashls.setup{}
 
 -- Go
-nvim_lsp.gopls.setup{}
+nvim_lsp.gopls.setup{
+  on_attach = require("lsp-format").on_attach,
+  capabilities = capabilities,
+}
 
 local saga = require 'lspsaga'
 saga.init_lsp_saga()
+
+require("flutter-tools").setup{
+  --flutter_path = "/home/mehrdad/snap/flutter/common/flutter/bin/flutter",
+  lsp = {
+    on_attach = require("lsp-format").on_attach,
+    capabilities = capabilities
+  }
+}
