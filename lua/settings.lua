@@ -29,6 +29,7 @@ w.number = true             -- show line number
 w.relativenumber = true     -- show relative line numbers
 o.showmatch = true          -- highlight matching parenthesis
 w.foldmethod = 'indent'     -- enable folding (default 'marker')
+o.foldlevelstart = 1        -- set start level for folding
 w.colorcolumn = '80'        -- line lenght marker at 80 columns
 o.splitright = true         -- vertical split to the right
 o.splitbelow = true         -- orizontal split to the bottom
@@ -37,6 +38,8 @@ o.smartcase = true          -- ignore lowercase for the whole pattern
 o.scrolloff = 15            -- keep active line in center
 o.laststatus = 2            -- always show status line
 o.diffopt = o.diffopt .. ',vertical'
+o.shortmess = 'acT'               -- avoid the "hit-enter" prompts caused by file messages
+o.nostartofline = true      -- Preserve cursor position when switching between buffers
 
 -- keep changes history
 o.undofile = true
@@ -50,7 +53,7 @@ g.ctrlsf_regex_pattern = 1
 -- remove whitespace on save
 autocmd("BufWritePre", {
   pattern = "*",
-  command = "%s/\s\+$//e"
+  command = [[%s/\s\+$//e]]
 })
 
 -- highlight on yank
@@ -81,54 +84,153 @@ g.ctrlp_map = '<C-p>'
 g.ctrlp_cmd = 'CtrlP'
 
 -- Telescope configs
-require('telescope').load_extension('fzy_native')
-require('telescope').setup {
+local telescope = require('telescope')
+telescope.load_extension('fzy_native')
+--local mvnsearch = telescope.extensions.mvnsearch
+telescope.setup {
   defaults = {
     file_ignore_patterns = {
-      "node_modules",
-      "platforms",
-      "plugins",
-      "dist",
-      "lib",
-      "uploads",
-      "www",
-      "i18n",
-      "tests",
-      "*.po"
+      "node_modules/",
+      "platforms/",
+      "plugins/",
+      "dist/",
+      "build/",
+      "lib/",
+      "uploads/",
+      "www/",
+      "i18n/",
+      "*.po",
+      "vendor/",
+      "migrations/",
+      "staticfiles/",
+      "*.png",
+      "*.jpg",
+      "*.jpeg",
     },
   },
 }
-require('telescope').load_extension('git_worktree')
-require('telescope').load_extension('flutter')
+telescope.load_extension('git_worktree')
+telescope.load_extension('flutter')
+telescope.load_extension('dap')
 
 -- treesitter configs
 require'nvim-treesitter.configs'.setup {
-	ensure_installed = "all",
-	highlight = { enable = true, disable = {"javascript", "python", "xml"} },
-	rainbow = {
-		enable = true,
-		extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-		max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
-	}
+  ensure_installed = "all",
+  highlight = { enable = true, disable = {"javascript", "python", "xml", "help"} },
+  --highlight = { enable = false },
+  rainbow = {
+    enable = true,
+    extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+    max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
+  },
+  indent = { enable = true },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "<C-space>",
+      node_incremental = "<C-space>",
+      scope_incremental = false,
+      node_decremental = "<bs>",
+    },
+  },
+  textobjects = {
+    select = {
+      enable = true,
+      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+      keymaps = {
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+        ["al"] = "@loop.outer",
+        ["il"] = "@loop.inner",
+        ["ai"] = "@conditional.outer",
+        ["ii"] = "@conditional.inner",
+        ["aa"] = "@parameter.outer",
+        ["ia"] = "@parameter.inner",
+        ["i="] = "@assignment.inner",
+        ["a="] = "@assignment.outer",
+      },
+    },
+    swap = {
+      enable = true,
+      swap_next = {
+        ["<leader>na"] = "@parameter.inner",
+      },
+      swap_previous = {
+        ["<leader>pa"] = "@parameter.inner",
+      },
+    },
+    move = {
+      enable = true,
+      set_jumps = true, -- whether to set jumps in the jumplist
+      goto_next_start = {
+        ["]m"] = "@function.outer",
+        ["]]"] = "@class.outer",
+      },
+      goto_next_end = {
+        ["]M"] = "@function.outer",
+        ["]["] = "@class.outer",
+      },
+      goto_previous_start = {
+        ["[m"] = "@function.outer",
+        ["[["] = "@class.outer",
+      },
+      goto_previous_end = {
+        ["[M"] = "@function.outer",
+        ["[]"] = "@class.outer",
+      },
+    },
+  }
 }
 
 -- actiate colors preview plugin
 o.termguicolors = true
-require'colorizer'.setup()
+require'colorizer'.setup {
+  "*";
+  user_default_options = {
+    tailwind = true,
+  }
+}
 
 -----------------------------------------------------------
 -- Memory, CPU
 -----------------------------------------------------------
 o.hidden = true         -- enable background buffers
 o.history = 100         -- remember n lines in history
-o.lazyredraw = true     -- faster scrolling
+--o.lazyredraw = true     -- faster scrolling
 b.synmaxcol = 240       -- max column for syntax highlight
 
 -----------------------------------------------------------
 -- Colorscheme
 -----------------------------------------------------------
-o.termguicolors = true          -- enable 24-bit RGB colors
-cmd([[colorscheme gruvbox]])    -- set colorscheme
+g.termguicolors = true          -- enable 24-bit RGB colors
+g.background = dark
+require("gruvbox").setup({
+  terminal_colors = true, -- add neovim terminal colors
+  undercurl = true,
+  underline = true,
+  bold = true,
+  italic = {
+    strings = true,
+    emphasis = true,
+    comments = true,
+    operators = false,
+    folds = true,
+  },
+  strikethrough = true,
+  invert_selection = false,
+  invert_signs = false,
+  invert_tabline = false,
+  invert_intend_guides = false,
+  inverse = true, -- invert background for search, diffs, statuslines and errors
+  contrast = "", -- can be "hard", "soft" or empty string
+  palette_overrides = {},
+  overrides = {},
+  dim_inactive = false,
+  transparent_mode = false,
+})
+cmd([[colorscheme gruvbox]])
 --g.gruvbox_contrast_dark = 'hard'
 
 -----------------------------------------------------------
@@ -158,23 +260,37 @@ autocmd("FileType", {
   command = "setlocal cc=0"
 })
 
--- 2 spaces for selected filetypes
+-- indent size settings
 autocmd("FileType", {
-  pattern = {"xml","html", "htmldjango","xhtml","css","scss","javascript","typescript","lua","dart"},
-  command = "setlocal shiftwidth=2 tabstop=2"
+  pattern = {"xml","html", "htmldjango","xhtml","css","scss","javascript","typescript","lua","dart", "vue", "typescriptreact", "javascriptreact"},
+  command = "setlocal shiftwidth=2 tabstop=2 expandtab"
+})
+autocmd("FileType", {
+  pattern = {"php"},
+  command = "setlocal shiftwidth=4 tabstop=4 expandtab autoindent smartindent"
+})
+autocmd("BufEnter", {
+  pattern = {"*.tsx"},
+  command = "setlocal shiftwidth=2 tabstop=2 expandtab"
+})
+autocmd("FileType", {
+  pattern = {"kotlin", "java", "groovy"},
+  command = "setlocal shiftwidth=4 tabstop=4 expandtab"
 })
 
 -----------------------------------------------------------
 -- Python
 -----------------------------------------------------------
-autocmd("FileType", {
-  pattern = "python",
-  command = "setlocal foldlevelstart=99"
-})
-autocmd("BufWritePre", {
-  pattern = {"*.py"},
-  command = "Yapf"
-})
+--autocmd("BufEnter", {
+--  pattern = "python",
+--  command = "setlocal foldlevelstart=1"
+--})
+-- Call yapf to format the file
+--autocmd("BufWritePre", {
+--  pattern = {"*.py"},
+--  command = "Yapf"
+--})
+
 
 -----------------------------------------------------------
 -- Go
@@ -183,12 +299,12 @@ autocmd("FileType", {
   pattern = "go",
   command = "setlocal shiftwidth=4 tabstop=4"
 })
+require("gopher").setup()
 
 -----------------------------------------------------------
 -- Autocompletion
 -----------------------------------------------------------
 o.completeopt = 'menu,menuone,noselect' -- completion options
-o.shortmess = 'c'       -- don't show completion messages
 
 -----------------------------------------------------------
 -- Lualine
@@ -198,6 +314,29 @@ require('lualine').setup {
     theme = 'molokai',
     icons_enabled = true
   };
+  sections = {
+    lualine_a = {
+      {
+        'buffers',
+      }
+    },
+    lualine_z = {
+      "location",
+      {
+        function()
+          local isVisualMode = fn.mode():find("[Vv]")
+          if not isVisualMode then return "" end
+          local starts = fn.line("v")
+          local ends = fn.line(".")
+          local lines = starts <= ends and ends - starts + 1 or starts - ends + 1
+          return tostring(lines) .. "L " .. tostring(fn.wordcount().visual_chars) .. "C"
+        end,
+        cond = function()
+          return vim.fn.mode():find("[Vv]") ~= nil
+        end,
+      },
+    },
+  }
 }
 
 require'nvim-tree'.setup {}
@@ -208,3 +347,186 @@ require'nvim-tree'.setup {}
 g.code_action_menu_show_diff = false
 
 require('yapf').setup {}
+
+-----------------------------------------------------------
+-- setup mason plugin (package manager for installing lsp servers)
+-----------------------------------------------------------
+require("mason").setup()
+
+-- autotag and autopairs configs
+require'nvim-treesitter.configs'.setup {
+  autotag = {
+    enable = true,
+  }
+}
+require("nvim-autopairs").setup {
+  enable_check_bracket_line = false
+}
+
+-- formatter configs
+local util = require("conform.util")
+require("conform").setup({
+  format = {
+    timeout_ms = 3000,
+    async = false, -- not recommended to change
+    quiet = false, -- not recommended to change
+  },
+  formatters_by_ft = {
+    php = { "pint" },
+  },
+  formatters = {
+    pint = {
+      meta = {
+        url = "https://github.com/laravel/pint",
+        description = "Laravel Pint is an opinionated PHP code style fixer for minimalists. Pint is built on top of PHP-CS-Fixer and makes it simple to ensure that your code style stays clean and consistent.",
+      },
+      command = util.find_executable({
+        vim.fn.stdpath("data") .. "/mason/bin/pint",
+        "vendor/bin/pint",
+      }, "pint"),
+      args = { "$FILENAME" },
+      stdin = false,
+    },
+  },
+  format_on_save = {
+    -- These options will be passed to conform.format()
+    timeout_ms = 2000,
+    lsp_fallback = true,
+  },
+})
+
+-- prettier
+require('prettier').setup({
+  bin = "prettierd",
+  filetypes = {
+    "vue"
+  }
+})
+
+
+-- Java/Kotlin dependency
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "java", "kotlin"},
+  callback = function()
+    telescope.load_extension('mvnsearch')
+  end
+})
+
+-- database interface
+--require("config.dadbod").setup()
+g.db_ui_use_nerd_fonts = 1
+g.db_ui_auto_execute_table_helpers = 1
+
+-- UI for messages, cmdline and the popupmenu
+require("noice").setup({
+  lsp = {
+    -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+    override = {
+      ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+      ["vim.lsp.util.stylize_markdown"] = true,
+      ["cmp.entry.get_documentation"] = true,
+    },
+  },
+  -- you can enable a preset for easier configuration
+  presets = {
+    bottom_search = true, -- use a classic bottom cmdline for search
+    command_palette = true, -- position the cmdline and popupmenu together
+    long_message_to_split = true, -- long messages will be sent to a split
+    inc_rename = false, -- enables an input dialog for inc-rename.nvim
+    lsp_doc_border = false, -- add a border to hover docs and signature help
+  },
+  routes = {
+    {
+      filter = {
+        event = 'msg_show',
+        any = {
+          { find = '%d+L, %d+B' },
+          { find = '; after #%d+' },
+          { find = '; before #%d+' },
+          { find = '%d fewer lines' },
+          { find = '%d more lines' },
+          { find = '%d+ lines? %-%-%d+%%%-%-' },
+          { find = '%[LSP%]%[null%-ls%] timeout' },
+          { find = 'lines? [><]ed' },
+          { find = 'Workspace edit Apply source code transformation' },
+          { find = '--No lines in buffer--' },
+        },
+      },
+      opts = { skip = true },
+    },
+    {
+      filter = {
+        event = 'notify',
+        any = {
+          { find = '%[LSP%]%[null%-ls%] timeout' },
+          { find = 'No information available' },
+        },
+      },
+      opts = { skip = true },
+    },
+    {
+      filter = {
+        event = 'lsp',
+        any = {
+          { find = 'code_action null[-]ls' },
+          { find = 'Resolving code actions phpactor' },
+        },
+      },
+      opts = { skip = true },
+    }
+  },
+})
+
+-- Obsidian settigns
+require("obsidian").setup({
+  workspaces = {
+    {
+      name = "personal",
+      path = "~/Documents/Notes/Personal",
+    },
+    {
+      name = "work",
+      path = "~/Documents/Notes/Work",
+    },
+  },
+  note_id_func = function(title)
+    -- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
+    -- In this case a note with the title 'My new note' will be given an ID that looks
+    -- like '1657296016-my-new-note', and therefore the file name '1657296016-my-new-note.md'
+    local suffix = ""
+    if title ~= nil then
+      -- If title is given, transform it into valid file name.
+      suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+    else
+      -- If title is nil, just add 4 random uppercase letters to the suffix.
+      for _ = 1, 4 do
+        suffix = suffix .. string.char(math.random(65, 90))
+      end
+    end
+    return tostring(os.time()) .. "-" .. suffix
+  end,
+  conceallevel = 1
+})
+
+-- Autocompletion for dadbod (database interface)
+autocmd("FileType", {
+  pattern = "sql,mysql,plsql",
+  command = "lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })"
+})
+
+-- neotest configs
+local neotest_ns = vim.api.nvim_create_namespace("neotest")
+vim.diagnostic.config({
+  virtual_text = {
+    format = function(diagnostic)
+      local message =
+      diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
+      return message
+    end,
+  },
+}, neotest_ns)
+require("neotest").setup({
+  adapters = {
+    require("neotest-go"),
+  },
+})

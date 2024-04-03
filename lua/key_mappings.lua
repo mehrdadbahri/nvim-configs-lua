@@ -15,11 +15,11 @@ map('n', '<C-H>', '<C-W><C-H>', { noremap = true, silent = true })
 
 -- smart tab
 local function t(str)
-    return vim.api.nvim_replace_termcodes(str, true, true, true)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
 function _G.smart_tab()
-    return vim.fn.pumvisible() == 1 and t'<C-n>' or t'<Tab>'
+  return vim.fn.pumvisible() == 1 and t'<C-n>' or t'<Tab>'
 end
 
 map('i', '<Tab>', 'v:lua.smart_tab()', {expr = true, noremap = true})
@@ -59,15 +59,6 @@ map('n', '<Leader>q', '<Cmd>qa<CR>', { noremap = true, silent = true })
 map('n', ';', 'A;<Esc>', { noremap = true, silent = true })
 map('n', '<Leader>,', 'A,<Esc>', { noremap = true, silent = true })
 
--- CtrlSF mappings
-map('n', '<C-F>f', '<Plug>CtrlSFPrompt', { noremap = true, silent = true })
-map('v', '<C-F>f', '<Plug>CtrlSFVwordPath', { noremap = true, silent = true })
-map('v', '<C-F>F', '<Plug>CtrlSFVwordExec', { noremap = true, silent = true })
-map('n', '<C-F>n', '<Plug>CtrlSFCwordPath', { noremap = true, silent = true })
-map('n', '<C-F>p', '<Plug>CtrlSFPwordPath', { noremap = true, silent = true })
-map('n', '<C-F>o', '<Cmd>CtrlSFOpen<CR>', { noremap = true, silent = true })
-map('n', '<C-F>t', '<Cmd>CtrlSFToggle<CR>', { noremap = true, silent = true })
-
 -- show git status
 map('n', '<C-G>', '<Cmd>Git<CR>', { noremap = true, silent = true })
 
@@ -75,15 +66,8 @@ map('n', '<C-G>', '<Cmd>Git<CR>', { noremap = true, silent = true })
 map('n', 'dr', '<Cmd>diffget //3<CR>', { noremap = true, silent = true })
 map('n', 'dl', '<Cmd>diffget //2<CR>', { noremap = true, silent = true })
 
--- run the current file in bash
-map('n', '<Leader>r', '<Cmd>!"%:p"<CR>', { noremap = true, silent = true })
--- make current file executable
-map('n', '<Leader>ch', '<Cmd>!chmod +x %<CR>', { noremap = true, silent = true })
-
 --  nvim-tree shortcuts
 map('n', '<C-n>', ':NvimTreeToggle<CR>', {noremap = true, silent = true})
-map('n', '<leader>r', ':NvimTreeRefresh<CR>', {noremap = true, silent = true})
-map('n', '<leader>n', ':NvimTreeFindFile<CR>', {noremap = true, silent = true})
 
 -- format python file with yapf
 map('n', '<leader>=', '<Cmd>Yapf<CR>', {noremap = true, silent = true})
@@ -91,16 +75,18 @@ map('n', '<leader>=', '<Cmd>Yapf<CR>', {noremap = true, silent = true})
 -- Telescope mappings
 map('n', '<leader>f', '<Cmd>Telescope find_files<CR>', {noremap = true, silent = true})
 map('n', '<leader>g', '<Cmd>Telescope live_grep<CR>', {noremap = true, silent = true})
-map('n', '<leader>b', '<Cmd>Telescope buffers<CR>', {noremap = true, silent = true})
+map('n', '<leader>t', '<Cmd>Telescope buffers<CR>', {noremap = true, silent = true})
 map('n', '<leader>h', '<Cmd>Telescope help_tags<CR>', {noremap = true, silent = true})
 map('n', '<leader>c', '<Cmd>Telescope git_commits<CR>', {noremap = true, silent = true})
-map('n', '<leader>t', '<Cmd>Telescope git_branches<CR>', {noremap = true, silent = true})
+map('n', '<leader>b', '<Cmd>Telescope git_branches<CR>', {noremap = true, silent = true})
 map('n', '<leader>j', '<Cmd>Telescope grep_string<CR>', {noremap = true, silent = true})
-map('n', '<leader><CR>', '<Cmd>Telescope flutter commands<CR>', {noremap = true, silent = true})
+map('n', '<leader>db', '<Cmd>Telescope dap commands<CR>', {noremap = true, silent = true})
+map('n', '<leader>dv', '<Cmd>Telescope dap variables<CR>', {noremap = true, silent = true})
+map('n', '<leader>wt', '<Cmd>Telescope git_worktree<CR>', {noremap = true, silent = true})
 
 -- insert !important css option
 function _G.insert_css_option_important()
-    return (vim.bo.filetype == 'css' or vim.bo.filetype == 'scss' or vim.bo.filetype == 'less') and '$i !important' or ''
+  return (vim.bo.filetype == 'css' or vim.bo.filetype == 'scss' or vim.bo.filetype == 'less') and '$i !important' or ''
 end
 map('n', '!', ':lua.insert_css_option_important()', {noremap = true, silent = true})
 
@@ -113,6 +99,7 @@ map('n', '<F4>', '<Cmd>TroubleToggle workspace_diagnostics<CR>', {noremap = true
 map('n', '<leader><space>', '<Cmd>CodeActionMenu<CR>', {noremap = true, silent = true})
 map('v', '<leader><space>', '<Cmd>CodeActionMenu<CR>', {noremap = true, silent = true})
 map('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', {noremap = true, silent = true})
+map('n', 'gr', '<Cmd>TroubleToggle lsp_references<cr>', {noremap = true, silent = true})
 
 -- navigate between buffers
 map('n', ']b', '<Cmd>bn<CR>', {noremap = true, silent = true})
@@ -122,7 +109,14 @@ map('n', '[b', '<Cmd>bp<CR>', {noremap = true, silent = true})
 map('n', '<Leader><Esc>', ':nohl<CR>', {noremap = true, silent = true})
 
 -- Run Flutter app
-map('n', '<F5>', '<Cmd>FlutterRun --dart-define=API_URL=https://api.mycrown.club<CR>', {noremap = true, silent = true})
+vim.api.nvim_create_autocmd('FileType', {
+	pattern = 'dart',
+	group = vim.api.nvim_create_augroup('tex_only_keymap', { clear = true }),
+	callback = function ()
+    map('n', '<F5>', '<Cmd>FlutterRun<CR>', {noremap = true, silent = true})
+    map('n', '<leader><CR>', '<Cmd>Telescope flutter commands<CR>', {noremap = true, silent = true})
+	end,
+})
 
 --------------------------------
 -- vim-vsnip mappings
@@ -144,3 +138,43 @@ smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab
 imap <expr> <C-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-k>'
 smap <expr> <C-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-k>'
 ]])
+
+-- Open terminal in a vertical split window
+map('n', '<C-T>', '<Cmd>15split | :terminal<CR>', {noremap = true, silent = true})
+
+-- Toggle zen mode (maximize current window)
+map('n', '<leader>m', '<Cmd>ZenMode<CR>', {noremap = true, silent = true})
+
+-- Go debugger (delve) mappings
+map('n', '<leader>dt', '<Cmd>lua require("dap-go").debug_test()<CR>', {noremap = true, silent = true})
+map('n', '<leader>dlt', '<Cmd>lua require("dap-go").debug_last_test()<CR>', {noremap = true, silent = true})
+function _G.open_debugging_sidebar()
+  local widgets = require('dap.ui.widgets')
+  local sidebar = widgets.sidebar(widgets.scopes)
+  sidebar.open()
+end
+map('n', '<leader>ds', '<Cmd>lua open_debugging_sidebar()<CR>', {noremap = true, silent = true})
+map('n', '<F9>', '<Cmd>DapStepOver<CR>', {noremap = true, silent = true})
+
+-- gopher mappings
+map('n', '<leader>at', '<Cmd>GoTagAdd json<CR>', {noremap = true, silent = true})
+map('n', '<leader>rt', '<Cmd>GoTagRm json<CR>', {noremap = true, silent = true})
+map('n', '<leader>ae', '<Cmd>GoIfErr<CR>', {noremap = true, silent = true})
+map('n', '<leader>dg', '<Cmd>GoTestAdd<CR>', {noremap = true, silent = true})
+
+-- dapui
+map('n', '<leader>du', '<Cmd>lua require("dapui").toggle()<CR>', {noremap=true})
+
+-- Obsidian mappings
+map("n", "<leader>no", ":ObsidianOpen<CR>", {noremap=true})
+map("n", "<leader>nn", ":ObsidianNew ", {noremap=true})
+map("n", "<leader>ns", ":ObsidianQuickSwitch<CR>", {noremap=true})
+map("n", "<leader>nw", ":ObsidianWorkspace ", {noremap=true})
+
+-- open an empty file in /temp folder
+map("n", "<leader>ww", ":e /tmp/tempfile<CR>", {noremap = true, silent = true})
+
+-- neotest mappings
+map('n', '<F5>', '<Cmd>lua require("neotest").run.run()<CR>', {noremap=true})
+map('n', '<leader>rf', '<Cmd>lua require("neotest").run.run(vim.fn.expand("%"))<CR>', {noremap=true})
+map('n', '<leader>rp', '<Cmd>lua require("neotest").run.run(vim.fn.getcwd())<CR>', {noremap=true})

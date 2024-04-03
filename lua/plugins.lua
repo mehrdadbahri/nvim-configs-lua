@@ -12,8 +12,8 @@ return require('packer').startup(function()
 	use 'wbthomason/packer.nvim'
 
 	-- nvim tree
-	use 'kyazdani42/nvim-web-devicons'
-	use 'kyazdani42/nvim-tree.lua'
+	use 'nvim-tree/nvim-web-devicons'
+	use 'nvim-tree/nvim-tree.lua'
 
 	-- indentLine
 	use 'Yggdroot/indentLine'
@@ -21,7 +21,7 @@ return require('packer').startup(function()
 	-- lualine (status line)
 	use {
 		'hoob3rt/lualine.nvim',
-		requires = {'kyazdani42/nvim-web-devicons', opt = true}
+		requires = {'nvim-tree/nvim-web-devicons', opt = true}
 	}
 
 	-- Autocomplete
@@ -43,10 +43,13 @@ return require('packer').startup(function()
 	use 'neovim/nvim-lspconfig'
 
 	-- Telescope
-	use {
-		'nvim-telescope/telescope.nvim',
-		requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
-	}
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = {
+      {'nvim-lua/popup.nvim'},
+      {'nvim-lua/plenary.nvim'},
+    }
+  }
 	use 'nvim-telescope/telescope-fzy-native.nvim'
 
 	-- autopairs
@@ -62,10 +65,10 @@ return require('packer').startup(function()
 	use 'preservim/nerdcommenter'
 
 	-- Vimwiki
-	use {
-    'vimwiki/vimwiki',
-    branch = 'dev'
-	}
+	--use {
+  --  'vimwiki/vimwiki',
+  --  branch = 'dev'
+	--}
 
 	-- auto close html tags
 	use 'alvan/vim-closetag'
@@ -77,20 +80,20 @@ return require('packer').startup(function()
 	use 'airblade/vim-gitgutter'
 
 	-- markdown syntax highlight
-	use 'plasticboy/vim-markdown'
+	--use 'plasticboy/vim-markdown'
 
 	-- surrund text with symbols easily
 	use 'tpope/vim-surround'
 
 	-- Task manager
-	use {
-		'tools-life/taskwiki',
-		requires = {
-			{'powerman/vim-plugin-AnsiEsc'},
-			{'preservim/tagbar'},
-			{'blindFS/vim-taskwarrior'}
-		}
-	}
+	--use {
+	--  'tools-life/taskwiki',
+	--  requires = {
+	--    {'powerman/vim-plugin-AnsiEsc'},
+	--    {'preservim/tagbar'},
+	--    {'blindFS/vim-taskwarrior'}
+	--  }
+	--}
 
 	-- quick fix list and location list toggle
   use 'Valloric/ListToggle'
@@ -98,7 +101,7 @@ return require('packer').startup(function()
 	-- show lsp diagnostics, references, telescope results, ...
 	use {
 		"folke/trouble.nvim",
-		requires = "kyazdani42/nvim-web-devicons",
+		requires = "nvim-tree/nvim-web-devicons",
 		config = function() require("trouble").setup {} end
 	}
 
@@ -125,15 +128,21 @@ return require('packer').startup(function()
   -- use 'p00f/nvim-ts-rainbow'
 
   -- gruvbox color scheme
-  use 'morhetz/gruvbox'
+  use 'ellisonleao/gruvbox.nvim'
 
   -- lspsaga
-  use 'glepnir/lspsaga.nvim'
+  use ({
+    'nvimdev/lspsaga.nvim',
+    after = 'nvim-lspconfig',
+    config = function()
+        require('lspsaga').setup({})
+    end,
+  })
 
   -- lsp typescript utils
   use {
     'jose-elias-alvarez/nvim-lsp-ts-utils',
-    requires = 'jose-elias-alvarez/null-ls.nvim'
+    requires = 'nvimtools/none-ls.nvim'
   }
 
   -- git worktree
@@ -159,4 +168,123 @@ return require('packer').startup(function()
 
   -- Icons
   use 'ryanoasis/vim-devicons'
+
+  -- markdown preview
+  use({
+      "iamcco/markdown-preview.nvim",
+      run = function() vim.fn["mkdp#util#install"]() end,
+  })
+
+  use {
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+  }
+
+  use 'yuchanns/phpfmt.nvim'
+
+  -- better quickfix  window
+  use {'kevinhwang91/nvim-bqf'}
+
+  -- Distraction-free coding for Neovim
+  use 'folke/zen-mode.nvim'
+
+  -- Prettier plugin for Neovim's built-in LSP client
+  use 'MunifTanjim/prettier.nvim'
+
+  -- vscode-like pictograms for neovim lsp completion items
+  use 'onsails/lspkind.nvim'
+
+  -- auto close html tags
+  use 'windwp/nvim-ts-autotag'
+
+  -- formatter plugin
+  use 'stevearc/conform.nvim'
+
+  -- syntax highlighting for Blade templates (Laravel)
+  use 'jwalton512/vim-blade'
+
+  -- Debug Adapter Protocol client
+  use 'mfussenegger/nvim-dap'
+  use 'nvim-telescope/telescope-dap.nvim'
+  use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+  use 'theHamsta/nvim-dap-virtual-text'
+
+  -- Go debugger (delve)
+  use 'leoluz/nvim-dap-go'
+
+  -- Go tools
+  use {
+    "olexsmir/gopher.nvim",
+    requires = { -- dependencies
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+  }
+
+  -- Python debugger
+  use 'mfussenegger/nvim-dap-python'
+
+  -- Java lsp
+  use 'mfussenegger/nvim-jdtls'
+
+
+  -- search and add Java/Kotlin dependencies
+  use {
+    'Iamnotagenius/mvnsearch.nvim',
+    --rocks = {
+    --  -- It is important to specify this version since the latest version of xml2lua on luarocks
+    --  -- has some bugs, see https://github.com/manoelcampos/xml2lua/issues/87
+    --  'xml2lua 1.5-1'
+    --}
+  }
+
+  -- database tool
+  use {
+    'tpope/vim-dadbod',
+    requires = {
+      'kristijanhusak/vim-dadbod-ui',
+      'kristijanhusak/vim-dadbod-completion',
+    }
+  }
+
+  -- UI for messages, cmdline and the popupmenu
+  use {
+    'folke/noice.nvim',
+    requires = {
+      'MunifTanjim/nui.nvim',
+      'rcarriga/nvim-notify',
+    }
+  }
+
+  -- Obsidian notes
+  use {
+    "epwalsh/obsidian.nvim",
+    tag = "*",  -- recommended, use latest release instead of latest commit
+    requires = {
+      -- Required.
+      "nvim-lua/plenary.nvim",
+      {
+        "epwalsh/pomo.nvim",
+        tag = "*",  -- Recommended, use latest release instead of latest commit
+      }
+    }
+  }
+
+  -- Text objects for treesitter
+  use {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    requires = "nvim-treesitter/nvim-treesitter",
+  }
+
+  use {
+    "nvim-neotest/neotest",
+    requires = {
+      "nvim-neotest/nvim-nio",
+      "nvim-lua/plenary.nvim",
+      --"antoinemadec/FixCursorHold.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-neotest/neotest-go",
+    }
+  }
 end)
+
