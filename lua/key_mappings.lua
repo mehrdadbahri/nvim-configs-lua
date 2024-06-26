@@ -94,12 +94,12 @@ map('n', '!', ':lua.insert_css_option_important()', {noremap = true, silent = tr
 map('t', '<Esc>', '<C-\\><C-n>', {noremap = true, silent = true})
 
 -- lsp key mappings
-map('n', '<F3>', '<Cmd>TroubleToggle document_diagnostics<CR>', {noremap = true, silent = true})
-map('n', '<F4>', '<Cmd>TroubleToggle workspace_diagnostics<CR>', {noremap = true, silent = true})
+map('n', '<F3>', '<Cmd>Trouble diagnostics toggle  filter.buf=0<CR>', {noremap = true, silent = true})
+map('n', '<F4>', '<Cmd>Trouble diagnostics toggle<CR>', {noremap = true, silent = true})
 map('n', '<leader><space>', '<Cmd>CodeActionMenu<CR>', {noremap = true, silent = true})
 map('v', '<leader><space>', '<Cmd>CodeActionMenu<CR>', {noremap = true, silent = true})
 map('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', {noremap = true, silent = true})
-map('n', 'gr', '<Cmd>TroubleToggle lsp_references<cr>', {noremap = true, silent = true})
+map('n', 'gr', '<Cmd>Trouble lsp_references toggle<cr>', {noremap = true, silent = true})
 
 -- navigate between buffers
 map('n', ']b', '<Cmd>bn<CR>', {noremap = true, silent = true})
