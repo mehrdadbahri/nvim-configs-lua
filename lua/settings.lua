@@ -39,7 +39,7 @@ o.scrolloff = 15            -- keep active line in center
 o.laststatus = 2            -- always show status line
 o.diffopt = o.diffopt .. ',vertical'
 o.shortmess = 'acT'               -- avoid the "hit-enter" prompts caused by file messages
-o.nostartofline = true      -- Preserve cursor position when switching between buffers
+g.nostartofline = true      -- Preserve cursor position when switching between buffers
 
 -- keep changes history
 o.undofile = true
@@ -346,7 +346,9 @@ require'nvim-tree'.setup {}
 -----------------------------------------------------------
 g.code_action_menu_show_diff = false
 
-require('yapf').setup {}
+require('yapf').setup {
+  command='yapf3'
+}
 
 -----------------------------------------------------------
 -- setup mason plugin (package manager for installing lsp servers)
