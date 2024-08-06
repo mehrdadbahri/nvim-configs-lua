@@ -39,6 +39,7 @@ o.scrolloff = 15            -- keep active line in center
 o.laststatus = 2            -- always show status line
 o.diffopt = o.diffopt .. ',vertical'
 o.shortmess = 'acT'               -- avoid the "hit-enter" prompts caused by file messages
+o.signcolumn = 'yes'
 g.nostartofline = true      -- Preserve cursor position when switching between buffers
 
 -- keep changes history
