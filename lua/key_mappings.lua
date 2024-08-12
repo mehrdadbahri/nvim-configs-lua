@@ -178,3 +178,7 @@ map("n", "<leader>ww", ":e /tmp/tempfile<CR>", {noremap = true, silent = true})
 map('n', '<F5>', '<Cmd>lua require("neotest").run.run()<CR>', {noremap=true})
 map('n', '<leader>rf', '<Cmd>lua require("neotest").run.run(vim.fn.expand("%"))<CR>', {noremap=true})
 map('n', '<leader>rp', '<Cmd>lua require("neotest").run.run(vim.fn.getcwd())<CR>', {noremap=true})
+
+-- Control copilot
+map('n', '<leader>+', '<Cmd>Copilot enable<CR>', {noremap=true})
+map('n', '<leader>-', '<Cmd>Copilot disable<CR>', {noremap=true})
