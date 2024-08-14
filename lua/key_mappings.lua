@@ -182,3 +182,6 @@ map('n', '<leader>rp', '<Cmd>lua require("neotest").run.run(vim.fn.getcwd())<CR>
 -- Control copilot
 map('n', '<leader>+', '<Cmd>Copilot enable<CR>', {noremap=true})
 map('n', '<leader>-', '<Cmd>Copilot disable<CR>', {noremap=true})
+
+-- close all buffers except current one
+map('n', '<leader>X', '<Cmd>%bd|e#|bd#<CR>', {noremap=true})
