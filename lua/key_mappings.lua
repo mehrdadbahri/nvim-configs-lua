@@ -83,6 +83,7 @@ map('n', '<leader>j', '<Cmd>Telescope grep_string<CR>', {noremap = true, silent 
 map('n', '<leader>db', '<Cmd>Telescope dap commands<CR>', {noremap = true, silent = true})
 map('n', '<leader>dv', '<Cmd>Telescope dap variables<CR>', {noremap = true, silent = true})
 map('n', '<leader>wt', '<Cmd>Telescope git_worktree<CR>', {noremap = true, silent = true})
+map('n', '<C-\\>', '<Cmd>Telescope lsp_references<CR>', {noremap = true, silent = true})
 
 -- insert !important css option
 function _G.insert_css_option_important()
@@ -99,7 +100,7 @@ map('n', '<F4>', '<Cmd>Trouble diagnostics toggle<CR>', {noremap = true, silent 
 map('n', '<leader><space>', '<Cmd>CodeActionMenu<CR>', {noremap = true, silent = true})
 map('v', '<leader><space>', '<Cmd>CodeActionMenu<CR>', {noremap = true, silent = true})
 map('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', {noremap = true, silent = true})
-map('n', 'gr', '<Cmd>Trouble lsp_references toggle<cr>', {noremap = true, silent = true})
+map('n', '<leader>gr', '<Cmd>Trouble lsp_references toggle<cr>', {noremap = true, silent = true})
 
 -- navigate between buffers
 map('n', ']b', '<Cmd>bn<CR>', {noremap = true, silent = true})
