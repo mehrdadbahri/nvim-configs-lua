@@ -276,6 +276,7 @@ return require('packer').startup(function()
     requires = "nvim-treesitter/nvim-treesitter",
   }
 
+  -- Neotest
   use {
     "nvim-neotest/neotest",
     requires = {
@@ -286,5 +287,55 @@ return require('packer').startup(function()
       "nvim-neotest/neotest-go",
     }
   }
+
+  -- Taskwarrior
+  use("ribelo/taskwarrior.nvim")
+
+  -- Task time tracker
+  use {
+    "3rd/time-tracker.nvim",
+    requires = {
+      "3rd/sqlite.nvim",
+    }
+  }
+
+  -- oil.nvim
+  use "stevearc/oil.nvim"
+
+  -- file operations using built-in LSP
+  use {
+    "antosha417/nvim-lsp-file-operations",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-tree.lua",
+    },
+  }
+
+  -- Highlight, list and search todo comments in your projects
+  use {
+    "folke/todo-comments.nvim",
+    requires = "nvim-lua/plenary.nvim",
+  }
+
+  -- Copilot chat
+  use {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    branch = "main",
+  }
+
+  -- IDE-like breadcrumbs, out of the box
+  use({
+    'Bekaboo/dropbar.nvim',
+    requires = {
+      'nvim-telescope/telescope-fzf-native.nvim'
+    }
+  })
+
+  -- Incremental LSP renaming
+  use "smjonas/inc-rename.nvim"
+
+  -- highlighter for log files
+  use 'fei6409/log-highlight.nvim'
+
 end)
 

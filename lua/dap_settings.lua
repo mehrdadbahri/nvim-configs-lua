@@ -4,7 +4,17 @@ local dap = require("dap")
 require("dap-python").setup()
 
 -- Go debugger (delve)
-require('dap-go').setup()
+require('dap-go').setup {
+  dap_configurations = {
+    {
+      type = 'go';
+      name = 'Debug main.go';
+      request = 'launch';
+      program = '${workspaceFolder}/cmd/executor/main.go';
+      cwd = '${workspaceFolder}';
+    }
+  }
+}
 
 -- Kotlin
 dap.adapters.kotlin = {
@@ -47,9 +57,24 @@ dap.configurations.kotlin = {
 }
 
 -- dap-ui
-require("dapui").setup()
+local dapui = require("dapui")
+dapui.setup()
 
 -- adds virtual text to show variables values
 require('nvim-dap-virtual-text').setup()
 
 vim.fn.sign_define('DapBreakpoint', { text='🔴', texthl='DapBreakpoint', linehl='DapBreakpoint', numhl='DapBreakpoint' })
+
+-- dap general setup
+dap.listeners.before.attach.dapui_config = function()
+ dapui.open()
+end
+dap.listeners.before.launch.dapui_config = function()
+ dapui.open()
+end
+dap.listeners.before.event_terminated.dapui_config = function()
+ dapui.close()
+end
+dap.listeners.before.event_exited.dapui_config = function()
+ dapui.close()
+end

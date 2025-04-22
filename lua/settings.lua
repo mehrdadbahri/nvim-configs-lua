@@ -29,7 +29,7 @@ w.number = true             -- show line number
 w.relativenumber = true     -- show relative line numbers
 o.showmatch = true          -- highlight matching parenthesis
 w.foldmethod = 'indent'     -- enable folding (default 'marker')
-o.foldlevelstart = 1        -- set start level for folding
+o.foldlevelstart = 99        -- set start level for folding
 w.colorcolumn = '80'        -- line lenght marker at 80 columns
 o.splitright = true         -- vertical split to the right
 o.splitbelow = true         -- orizontal split to the bottom
@@ -263,7 +263,7 @@ autocmd("FileType", {
 
 -- indent size settings
 autocmd("FileType", {
-  pattern = {"xml","html", "htmldjango","xhtml","css","scss","javascript","typescript","lua","dart", "vue", "typescriptreact", "javascriptreact"},
+  pattern = {"xml","html", "htmldjango","xhtml","css","scss","javascript","typescript","lua","dart", "vue", "typescriptreact", "javascriptreact", "json"},
   command = "setlocal shiftwidth=2 tabstop=2 expandtab"
 })
 autocmd("FileType", {
@@ -421,6 +421,9 @@ g.db_ui_use_nerd_fonts = 1
 g.db_ui_auto_execute_table_helpers = 1
 
 -- UI for messages, cmdline and the popupmenu
+require("notify").setup({
+  --background_colour = "#000000",
+})
 require("noice").setup({
   lsp = {
     -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
@@ -432,7 +435,7 @@ require("noice").setup({
   },
   -- you can enable a preset for easier configuration
   presets = {
-    bottom_search = true, -- use a classic bottom cmdline for search
+    bottom_search = false, -- use a classic bottom cmdline for search
     command_palette = true, -- position the cmdline and popupmenu together
     long_message_to_split = true, -- long messages will be sent to a split
     inc_rename = false, -- enables an input dialog for inc-rename.nvim
@@ -491,6 +494,10 @@ require("obsidian").setup({
       name = "work",
       path = "~/Documents/Notes/Work",
     },
+    {
+      name = "decimetr",
+      path = "~/Documents/Notes/Decimetr",
+    },
   },
   note_id_func = function(title)
     -- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
@@ -533,3 +540,42 @@ require("neotest").setup({
     require("neotest-go"),
   },
 })
+
+require("time-tracker").setup({
+  data_file = vim.fn.stdpath("data") .. "/time-tracker_" .. os.date("%Y-%m-%d") .. ".db",
+  --data_file = vim.fn.stdpath("data") .. "/time-tracker_2025-04-19.db",
+  tracking_events = { "BufEnter", "BufWinEnter", "CursorMoved", "CursorMovedI", "WinScrolled" },
+  tracking_timeout_seconds = 5 * 60, -- 5 minutes
+})
+
+-- edit your filesystem like a buffer
+require("oil").setup()
+
+-- file operations using built-in LSP
+require("lsp-file-operations").setup()
+
+-- Highlight, list and search todo comments in your projects
+require("todo-comments").setup()
+
+-- copilot chat
+require("CopilotChat").setup {
+  debug = false,
+  mappings = {
+    complete = {
+      detail = 'Use @<Tab> or /<Tab> for options.',
+      insert ='<S-Tab>',
+    },
+  },
+  --window = {
+  --  layout = 'float',
+  --  relative = 'cursor',
+  --  width = 1,
+  --  height = 0.4,
+  --  row = 1
+  --}
+}
+
+-- Incremental LSP renaming
+require("inc_rename").setup()
+
+require("dap-python").setup(".venv/bin/python")

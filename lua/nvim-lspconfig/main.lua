@@ -44,7 +44,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
 end
-nvim_lsp.ruff_lsp.setup {
+nvim_lsp.ruff.setup {
   on_attach = on_attach,
   init_options = {
     settings = {
