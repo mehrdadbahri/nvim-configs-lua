@@ -42,6 +42,11 @@ o.shortmess = 'acT'               -- avoid the "hit-enter" prompts caused by fil
 o.signcolumn = 'yes'
 g.nostartofline = true      -- Preserve cursor position when switching between buffers
 
+-- for persian texts
+vim.cmd("set noarabicshape")
+vim.cmd("set noarabic")
+
+
 -- keep changes history
 o.undofile = true
 g.undodir = '~/.vim/.vimundo'
@@ -263,7 +268,7 @@ autocmd("FileType", {
 
 -- indent size settings
 autocmd("FileType", {
-  pattern = {"xml","html", "htmldjango","xhtml","css","scss","javascript","typescript","lua","dart", "vue", "typescriptreact", "javascriptreact", "json"},
+  pattern = {"xml","html", "htmldjango","xhtml","css","scss","javascript","typescript","lua","dart", "vue", "typescriptreact", "javascriptreact"},
   command = "setlocal shiftwidth=2 tabstop=2 expandtab"
 })
 autocmd("FileType", {
@@ -275,7 +280,7 @@ autocmd("BufEnter", {
   command = "setlocal shiftwidth=2 tabstop=2 expandtab"
 })
 autocmd("FileType", {
-  pattern = {"kotlin", "java", "groovy"},
+  pattern = {"kotlin", "java", "groovy", "json"},
   command = "setlocal shiftwidth=4 tabstop=4 expandtab"
 })
 
@@ -579,3 +584,7 @@ require("CopilotChat").setup {
 require("inc_rename").setup()
 
 require("dap-python").setup(".venv/bin/python")
+
+vim.diagnostic.config( {
+  virtual_text = true
+})
