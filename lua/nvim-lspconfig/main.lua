@@ -12,18 +12,18 @@ local lsp_format = require("lsp-format")
 lsp_format.setup {}
 
 -- Python
-nvim_lsp.pyright.setup{
-  capabilities = capabilities,
-  settings = {
-    python = {
-      analysis = {
-        diagnosticSeverityOverrides = {
-          reportIncompatibleMethodOverride = false
-        }
-      }
-    }
-  }
-}
+--nvim_lsp.pyright.setup{
+--  capabilities = capabilities,
+--  settings = {
+--    python = {
+--      analysis = {
+--        diagnosticSeverityOverrides = {
+--          reportIncompatibleMethodOverride = "none",
+--        },
+--      },
+--    },
+--  }
+--}
 local on_attach = function(client, bufnr)
   -- Disable hover in favor of Pyright
   --client.server_capabilities.hoverProvider = false
@@ -48,8 +48,8 @@ nvim_lsp.ruff.setup {
   on_attach = on_attach,
   init_options = {
     settings = {
-      fixAll = false,
-      organizeImports = false,
+      fixAll = true,
+      organizeImports = true,
       codeAction = {
         disableRuleComment = {
           enable = false,
@@ -256,20 +256,21 @@ nvim_lsp.kotlin_language_server.setup{
 }
 
 -- Java
-local function get_java_lsp()
-end
-local java_on_attach = function(client, bufnr)
-  client.server_capabilities.documentFormattingProvider = false
-  client.server_capabilities.documentRangeFormattingProvider = false
-end
-local mason_registry = require "mason-registry"
-local jlsp = mason_registry.get_package "java-language-server"
-local jlsp_path = jlsp:get_install_path()
-nvim_lsp.java_language_server.setup{
-  cmd = { jlsp_path .. "/dist/lang_server_linux.sh" },
-  capabilities = capabilities,
-  on_attach = java_on_attach,
-}
+--local function get_java_lsp()
+--end
+--local java_on_attach = function(client, bufnr)
+--  client.server_capabilities.documentFormattingProvider = false
+--  client.server_capabilities.documentRangeFormattingProvider = false
+--end
+--local mason_registry = require "mason-registry"
+--local jlsp = mason_registry.get_package "java-language-server"
+--local jlsp_path = jlsp:get_install_path()
+--nvim_lsp.java_language_server.setup{
+--  cmd = { jlsp_path .. "/dist/lang_server_linux.sh" },
+--  capabilities = capabilities,
+--  on_attach = java_on_attach,
+--}
+-- Uncomment only to this point
 --local function get_jdtls()
 --  local mason_registry = require "mason-registry"
 --  local jdtls = mason_registry.get_package "jdtls"
