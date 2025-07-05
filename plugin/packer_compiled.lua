@@ -49,8 +49,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/home/mehrdad/.cache/nvim/packer_hererocks/2.1.1716656478/share/lua/5.1/?.lua;/home/mehrdad/.cache/nvim/packer_hererocks/2.1.1716656478/share/lua/5.1/?/init.lua;/home/mehrdad/.cache/nvim/packer_hererocks/2.1.1716656478/lib/luarocks/rocks-5.1/?.lua;/home/mehrdad/.cache/nvim/packer_hererocks/2.1.1716656478/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/home/mehrdad/.cache/nvim/packer_hererocks/2.1.1716656478/lib/lua/5.1/?.so"
+local package_path_str = "/home/mehrdad/.cache/nvim/packer_hererocks/2.1.1713484068/share/lua/5.1/?.lua;/home/mehrdad/.cache/nvim/packer_hererocks/2.1.1713484068/share/lua/5.1/?/init.lua;/home/mehrdad/.cache/nvim/packer_hererocks/2.1.1713484068/lib/luarocks/rocks-5.1/?.lua;/home/mehrdad/.cache/nvim/packer_hererocks/2.1.1713484068/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/home/mehrdad/.cache/nvim/packer_hererocks/2.1.1713484068/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -382,6 +382,16 @@ _G.packer_plugins = {
     path = "/home/mehrdad/.local/share/nvim/site/pack/packer/start/python-snippets",
     url = "https://github.com/cstrap/python-snippets"
   },
+  ["sqlite.nvim"] = {
+    loaded = true,
+    path = "/home/mehrdad/.local/share/nvim/site/pack/packer/start/sqlite.nvim",
+    url = "https://github.com/3rd/sqlite.nvim"
+  },
+  ["taskwarrior.nvim"] = {
+    loaded = true,
+    path = "/home/mehrdad/.local/share/nvim/site/pack/packer/start/taskwarrior.nvim",
+    url = "https://github.com/ribelo/taskwarrior.nvim"
+  },
   ["telescope-dap.nvim"] = {
     loaded = true,
     path = "/home/mehrdad/.local/share/nvim/site/pack/packer/start/telescope-dap.nvim",
@@ -396,6 +406,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/mehrdad/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
+  },
+  ["time-tracker.nvim"] = {
+    loaded = true,
+    path = "/home/mehrdad/.local/share/nvim/site/pack/packer/start/time-tracker.nvim",
+    url = "https://github.com/3rd/time-tracker.nvim"
   },
   ["trouble.nvim"] = {
     config = { "\27LJ\2\n9\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\ftrouble\frequire\0" },
