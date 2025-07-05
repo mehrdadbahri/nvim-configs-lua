@@ -1,7 +1,16 @@
 local dap = require("dap")
 
 -- python
-require("dap-python").setup()
+require('dap-python').setup('python')
+require('dap').configurations.python = {
+  {
+    type = 'python',
+    name = 'Django',
+    request = 'launch',
+    program = vim.fn.fnamemodify(vim.fn.getcwd() .. '/manage.py', ':p'),
+    args = {'runserver'},
+  }
+}
 
 -- Go debugger (delve)
 require('dap-go').setup {
@@ -78,3 +87,9 @@ end
 dap.listeners.before.event_exited.dapui_config = function()
  dapui.close()
 end
+
+-- fix color issues in output window
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "dap-repl",
+    command = "setl ft=log"
+})
