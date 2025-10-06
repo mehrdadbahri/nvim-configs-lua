@@ -285,6 +285,8 @@ return require('packer').startup(function()
       --"antoinemadec/FixCursorHold.nvim",
       "nvim-treesitter/nvim-treesitter",
       "nvim-neotest/neotest-go",
+      "nvim-neotest/neotest-python",
+      "kenunq/django-neotest",
     }
   }
 
@@ -336,6 +338,15 @@ return require('packer').startup(function()
 
   -- highlighter for log files
   use 'fei6409/log-highlight.nvim'
+
+  -- Easily follow markdown links
+  use 'jghauser/follow-md-links.nvim'
+
+  -- DAP for js/ts
+  use 'mxsdev/nvim-dap-vscode-js'
+
+  -- A playwright adapter for neotest
+  use 'thenbe/neotest-playwright'
 
 end)
 
