@@ -69,8 +69,9 @@ map('n', '<leader>lg', '<Cmd>Git<CR>', { noremap = true, silent = true })
 map('n', '<leader>ll', '<Cmd>Git log<CR>', {noremap = true, silent = true})
 
 -- git conflict 3 window diffget
-map('n', 'dr', '<Cmd>diffget //3<CR>', { noremap = true, silent = true })
-map('n', 'dl', '<Cmd>diffget //2<CR>', { noremap = true, silent = true })
+map('n', '<leader>dc', '<Cmd>Gvdiffsplit!<CR>', { noremap = true, silent = true })
+map('n', '<leader>dr', '<Cmd>diffget //3<CR>', { noremap = true, silent = true })
+map('n', '<leader>dl', '<Cmd>diffget //2<CR>', { noremap = true, silent = true })
 
 --  nvim-tree shortcuts
 map('n', '<C-n>', ':NvimTreeToggle<CR>', {noremap = true, silent = true})
@@ -170,6 +171,10 @@ map('n', '<F6>', '<Cmd>DapStepOver<CR>', {noremap = true, silent = true})
 map('n', '<F7>', '<Cmd>DapStepInto<CR>', {noremap = true, silent = true})
 map('n', '<F8>', '<Cmd>DapStepOut<CR>', {noremap = true, silent = true})
 map('n', '<leader>b', '<Cmd>DapToggleBreakpoint<CR>', {noremap = true, silent = true})
+map('n', '<leader>dc', '<Cmd>DapContinue<CR>', {noremap = true, silent = true})
+map('n', '<leader>dr', '<Cmd>DapRestart<CR>', {noremap = true, silent = true})
+map('n', '<leader>dR', '<Cmd>DapTerminate<CR>', {noremap = true, silent = true})
+map('n', '<leader>dl', '<Cmd>DapShowLog<CR>', {noremap = true, silent = true})
 
 -- gopher mappings
 map('n', '<leader>at', '<Cmd>GoTagAdd json<CR>', {noremap = true, silent = true})
@@ -181,7 +186,6 @@ map('n', '<leader>dg', '<Cmd>GoTestAdd<CR>', {noremap = true, silent = true})
 map('n', '<leader>du', '<Cmd>lua require("dapui").toggle()<CR>', {noremap=true})
 
 -- Obsidian mappings
-map("n", "<leader>no", ":ObsidianOpen<CR>", {noremap=true})
 map("n", "<leader>nn", ":ObsidianNew ", {noremap=true})
 map("n", "<leader>ns", ":ObsidianQuickSwitch<CR>", {noremap=true})
 map("n", "<leader>nw", ":ObsidianWorkspace ", {noremap=true})
@@ -193,6 +197,8 @@ map("n", "<leader>ww", ":e /tmp/tempfile<CR>", {noremap = true, silent = true})
 map('n', '<leader>nr', '<Cmd>lua require("neotest").run.run()<CR>', {noremap=true})
 map('n', '<leader>nf', '<Cmd>lua require("neotest").run.run(vim.fn.expand("%"))<CR>', {noremap=true})
 map('n', '<leader>np', '<Cmd>lua require("neotest").run.run(vim.fn.getcwd())<CR>', {noremap=true})
+map('n', '<leader>no', '<Cmd>Neotest output-panel<CR>', {noremap=true})
+map('n', '<leader>nv', '<Cmd>Neotest summary<CR>', {noremap=true})
 
 -- Control copilot
 map('n', '<leader>+', '<Cmd>Copilot enable<CR>', {noremap=true})
@@ -221,3 +227,5 @@ map('n', '<C-g>', '<Cmd>:echo expand("%:p")<CR>', {noremap=true})
 -- go to definition of symbol under cursor (lsp) in vertical split
 map('n', '<C-]>', '<Cmd>lua vim.lsp.buf.definition()<CR>', {noremap=true})
 map('n', '<leader>i', '<Cmd>lua vim.lsp.buf.implementation()<CR>', {noremap=true})
+
+map('n', '<leader>W', '<Cmd>noau w<CR>', {noremap=true})
