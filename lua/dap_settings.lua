@@ -9,7 +9,14 @@ require('dap').configurations.python = {
     request = 'launch',
     program = vim.fn.fnamemodify(vim.fn.getcwd() .. '/manage.py', ':p'),
     args = {'runserver'},
-  }
+  },
+  {
+    type = 'python',
+    name = 'Django test',
+    request = 'launch',
+    program = vim.fn.fnamemodify(vim.fn.getcwd() .. '/manage.py', ':p'),
+    args = {'test','--noinput','--keepdb','api.tests.TrackerOpenedMailViewTests'},
+  },
 }
 
 -- Go debugger (delve)
@@ -64,6 +71,109 @@ dap.configurations.kotlin = {
     timeout = 2000,
   },
 }
+
+-- Node.js/TypeScript debugging for NestJS
+-- Use a working Node.js debugger configuration
+dap.adapters["pwa-node"] = {
+  type = "server",
+  host = "localhost",
+  port = 4711,
+  executable = {
+    command = "node",
+    args = { "/home/mehrdad/.local/share/nvim/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js", "--server=4711" },
+  }
+}
+
+dap.adapters.node = {
+  type = "executable",
+  command = "node",
+  args = { "/home/mehrdad/.local/share/nvim/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js" }
+}
+
+for _, language in ipairs({ "typescript", "javascript" }) do
+  dap.configurations[language] = {
+    {
+      type = "node",
+      request = "launch",
+      name = "Launch NestJS App (npm)",
+      program = "${workspaceFolder}/src/main.ts",
+      cwd = "${workspaceFolder}",
+      runtimeExecutable = "npm",
+      runtimeArgs = { "run", "start:dev" },
+      console = "integratedTerminal",
+      skipFiles = { "<node_internals>/**" }
+    },
+    {
+      type = "node",
+      request = "launch",
+      name = "Launch NestJS App (yarn)",
+      program = "${workspaceFolder}/src/main.ts",
+      cwd = "${workspaceFolder}",
+      runtimeExecutable = "yarn",
+      runtimeArgs = { "start:dev" },
+      console = "integratedTerminal",
+      skipFiles = { "<node_internals>/**" }
+    },
+    {
+      type = "node",
+      request = "launch",
+      name = "Debug Current File",
+      program = "${file}",
+      cwd = "${workspaceFolder}",
+      console = "integratedTerminal",
+      skipFiles = { "<node_internals>/**" }
+    },
+    {
+      type = "node",
+      request = "launch",
+      name = "Launch NestJS App (Production)",
+      program = "${workspaceFolder}/dist/main.js",
+      cwd = "${workspaceFolder}",
+      console = "integratedTerminal",
+      skipFiles = { "<node_internals>/**" }
+    },
+    {
+      type = "node",
+      request = "launch",
+      name = "Debug NestJS Tests",
+      program = "${workspaceFolder}/node_modules/.bin/jest",
+      args = { "--runInBand", "--no-cache" },
+      cwd = "${workspaceFolder}",
+      console = "integratedTerminal",
+      skipFiles = { "<node_internals>/**" }
+    },
+    {
+      type = "pwa-node",
+      request = "attach",
+      name = "Attach to NestJS Process (Port 9229)",
+      port = 9229,
+      restart = true,
+      localRoot = "${workspaceFolder}",
+      remoteRoot = "${workspaceFolder}",
+      skipFiles = { "<node_internals>/**" }
+    },
+    {
+      type = "node",
+      request = "attach",
+      name = "Attach to NestJS Process (Port 9230)",
+      port = 9230,
+      restart = true,
+      localRoot = "${workspaceFolder}",
+      remoteRoot = "${workspaceFolder}",
+      skipFiles = { "<node_internals>/**" }
+    },
+    {
+      type = "node",
+      request = "attach",
+      name = "Attach to NestJS Process (Port 9231)",
+      port = 9231,
+      restart = true,
+      localRoot = "${workspaceFolder}",
+      remoteRoot = "${workspaceFolder}",
+      skipFiles = { "<node_internals>/**" }
+    }
+  }
+end
 
 -- dap-ui
 local dapui = require("dapui")
