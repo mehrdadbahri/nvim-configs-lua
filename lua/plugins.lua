@@ -291,7 +291,7 @@ return require('packer').startup(function()
   }
 
   -- Taskwarrior
-  use("ribelo/taskwarrior.nvim")
+  --use("ribelo/taskwarrior.nvim")
 
   -- Task time tracker
   use {
