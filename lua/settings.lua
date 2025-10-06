@@ -22,6 +22,7 @@ o.title = true              -- change the terminal's title
 g.noerrorbells = true       -- don't beep
 g.pastetoggle = '<F2>'
 g.closetag_filenames = '*.html,*.xml'
+o.exrc = true              -- enable local .nvim.lua files
 
 -- Neovim UI
 o.syntax = 'enable'         -- enable syntax highlighting
@@ -268,7 +269,7 @@ autocmd("FileType", {
 
 -- indent size settings
 autocmd("FileType", {
-  pattern = {"xml","html", "htmldjango","xhtml","css","scss","javascript","typescript","lua","dart", "vue", "typescriptreact", "javascriptreact"},
+  pattern = {"xml","html", "htmldjango","xhtml","css","scss","lua","dart", "vue", "typescriptreact", "javascriptreact"},
   command = "setlocal shiftwidth=2 tabstop=2 expandtab"
 })
 autocmd("FileType", {
@@ -280,7 +281,7 @@ autocmd("BufEnter", {
   command = "setlocal shiftwidth=2 tabstop=2 expandtab"
 })
 autocmd("FileType", {
-  pattern = {"kotlin", "java", "groovy", "json"},
+  pattern = {"kotlin", "java", "groovy", "json","javascript","typescript"},
   command = "setlocal shiftwidth=4 tabstop=4 expandtab"
 })
 
@@ -325,6 +326,9 @@ require('lualine').setup {
       {
         'buffers',
       }
+    },
+    lualine_w = {
+      "diagnostics",
     },
     lualine_z = {
       "location",
@@ -543,12 +547,35 @@ vim.diagnostic.config({
 require("neotest").setup({
   adapters = {
     require("neotest-go"),
+    require("django-neotest")({
+      -- Extra arguments for nvim-dap configuration
+      -- See https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for values
+      dap = { justMyCode = false },
+      -- Command line arguments for runner
+      -- Can also be a function to return dynamic values
+      --args = {"--log-level", "DEBUG"},
+      -- Runner to use. Will use pytest if available by default.
+      -- Can be a function to return dynamic value.
+      runner = "pytest", -- or "django", "unittest"
+      -- Custom python path for the runner.
+      -- Can be a string or a list of strings.
+      -- Can also be a function to return dynamic value.
+      -- If not provided, the path will be inferred by checking for
+      -- virtual envs in the local directory and for Pipenev/Poetry configs
+      python = ".venv/bin/python",
+    }),
+    require('neotest-playwright').adapter({
+      options = {
+        persist_project_selection = true,
+        enable_dynamic_test_discovery = true,
+      },
+    }),
   },
 })
 
 require("time-tracker").setup({
   data_file = vim.fn.stdpath("data") .. "/time-tracker_" .. os.date("%Y-%m-%d") .. ".db",
-  --data_file = vim.fn.stdpath("data") .. "/time-tracker_2025-04-19.db",
+  --data_file = vim.fn.stdpath("data") .. "/time-tracker_2025-09-28.db",
   tracking_events = { "BufEnter", "BufWinEnter", "CursorMoved", "CursorMovedI", "WinScrolled" },
   tracking_timeout_seconds = 5 * 60, -- 5 minutes
 })
