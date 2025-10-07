@@ -360,11 +360,6 @@ require('yapf').setup {
   command='yapf3'
 }
 
------------------------------------------------------------
--- setup mason plugin (package manager for installing lsp servers)
------------------------------------------------------------
-require("mason").setup()
-
 -- autotag and autopairs configs
 require'nvim-treesitter.configs'.setup {
   autotag = {

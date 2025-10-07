@@ -348,5 +348,11 @@ return require('packer').startup(function()
   -- A playwright adapter for neotest
   use 'thenbe/neotest-playwright'
 
+  -- Mason tool installer
+  use {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    requires = { "williamboman/mason.nvim" },
+  }
+
 end)
 
